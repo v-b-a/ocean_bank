@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/accounts-ob
+    username: postgres
+    password: password
+    poolSize: 5
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+clients-properties:
+  initial-status: 1
+
+dictionaries:
+  currency:
+    EUR: "Euro"
+    USD: "US Dollar"
+    RUB: "Russian Ruble"
+    CNY: "Yuan"
+    AED: "UAE Dirham"

@@ -1,0 +1,1 @@
+INSERT INTO clients (client_id, code, status_id) VALUES('1', 'AAAAA', '1');
