@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
@@ -19,6 +20,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @SpringBootTest(
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
         properties = {
+                "local.server.port=0",
                 "spring.datasource.url=jdbc:postgresql://localhost:5432/testdb",
                 "spring.datasource.username=postgres",
                 "spring.datasource.password=postgres",
@@ -35,6 +37,8 @@ public class BaseTest {
     protected WebTestClient webTestClient;
     @Autowired
     protected TestRepository testRepository;
+    @LocalServerPort
+    private int port;
 
     @Container
     public static PostgreSQLContainer<?> postgreSQLContainer = new PostgreSQLContainer<>("postgres:latest")
@@ -53,6 +57,6 @@ public class BaseTest {
     @BeforeEach
     void setUp(ApplicationContext context) {
         var mockServerSpec = MockMvcWebTestClient.bindToApplicationContext(this.wac);
-        this.webTestClient = mockServerSpec.configureClient().baseUrl("http://localhost:" + SpringBootTest.WebEnvironment.RANDOM_PORT).build();
+        this.webTestClient = mockServerSpec.configureClient().baseUrl("http://localhost:" + port).build();
     }
 }
