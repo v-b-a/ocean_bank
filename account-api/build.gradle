@@ -1,5 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+apply plugin: 'jacoco'
+
 dependencies {
     /* database */
     runtimeOnly 'org.postgresql:postgresql'
@@ -52,6 +54,15 @@ compileTestKotlin {
         jvmTarget = "17"
     }
 }
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        html.enabled true
+        csv.enabled false
+    }
+}
+
 
 java.sourceCompatibility = JavaVersion.VERSION_17
 java.targetCompatibility = JavaVersion.VERSION_17
