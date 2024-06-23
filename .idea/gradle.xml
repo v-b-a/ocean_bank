@@ -13,6 +13,7 @@
             <option value="$PROJECT_DIR$/account-api" />
             <option value="$PROJECT_DIR$/client-api" />
             <option value="$PROJECT_DIR$/error-handling-spring-boot-starter" />
+            <option value="$PROJECT_DIR$/eureka-server-api" />
           </set>
         </option>
       </GradleProjectSettings>

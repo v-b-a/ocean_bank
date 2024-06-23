@@ -27,6 +27,7 @@ allprojects {
 
     ext {
         springBootVersion = '3.3.0'
+        springCloudVersion = '2023.0.2'
         kotlinVersion = '1.9.24'
     }
 
@@ -60,6 +61,10 @@ allprojects {
             dependency 'org.springframework.cloud:spring-cloud-starter-openfeign:4.1.0'
             dependency "com.fasterxml.jackson.module:jackson-module-kotlin:2.17.1"
             dependency "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"
+
+            /* cloud */
+            dependency "org.springframework.cloud:spring-cloud-starter-netflix-eureka-server:$springCloudVersion"
+
             // logging
             dependency 'io.github.microutils:kotlin-logging:3.0.5'
             dependency 'log4j:log4j:1.2.17'

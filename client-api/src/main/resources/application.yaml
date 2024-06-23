@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: client-api
+  data:
+    mongodb:
+      database: client-api
+      uri: mongodb://localhost:27017
+server:
+  port: 8081
+client:
+  account:
+    url: http://localhost:8080
