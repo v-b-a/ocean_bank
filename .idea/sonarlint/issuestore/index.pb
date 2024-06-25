@@ -158,3 +158,9 @@ Vclient-api/src/main/java/com/ocean/bank/client/repository/entity/PersonalDocume
 Mclient-api/src/main/java/com/ocean/bank/client/repository/entity/Address.java,d/3/d323c47971e4d7f9532083b37d0a1205577ed939
 ƒ
 Sclient-api/src/main/java/com/ocean/bank/client/repository/entity/SensitiveData.java,5/b/5bf5340af48315bb6f1f5a81b8728d37a1c9ec84
+­
+}error-handling-spring-boot-starter/src/test/java/com/ocean/bank/error/handling/testEnvironment/controller/TestController.java,7/d/7df83248904d4dec150924774b2197e47f44b05b
+§
+werror-handling-spring-boot-starter/src/test/java/com/ocean/bank/error/handling/testEnvironment/service/TestService.java,1/d/1dc54f1ca557c583c3065b54b05ce7785d87c350
+Ÿ
+oerror-handling-spring-boot-starter/src/test/java/com/ocean/bank/error/handling/testEnvironment/dto/DemoDto.java,d/9/d9a69ab552a8c0469f9e334179ce5f9baf680919

@@ -1,4 +1,4 @@
-package com.ocean.bank.error.handling.testEnvirament.dto;
+package com.ocean.bank.error.handling.testEnvironment.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
