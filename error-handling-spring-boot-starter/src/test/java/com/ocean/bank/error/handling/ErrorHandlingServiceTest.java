@@ -1,16 +1,18 @@
 package com.ocean.bank.error.handling;
 
+import com.ocean.bank.error.handling.testEnvironment.dto.DemoDto;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class ErrorHandlingServiceTest extends BaseTest {
+class ErrorHandlingServiceTest extends BaseTest {
     @Test
-    public void testSqlException() throws Exception {
+    void testSqlException() throws Exception {
         mockMvc.perform(get("/testSqlException")
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -22,46 +24,32 @@ public class ErrorHandlingServiceTest extends BaseTest {
                         .value(Matchers.notNullValue()));
     }
 
-//    @Test
-//    public void testMissingRequestValueExceptionMissingQueryParam() {
-//        webTestClient.post()
-//                .uri(uriBuilder -> uriBuilder
-//                        .path("/testMissingRequestValueException")
-//                        // query param code is missing
-//                        .build())
-//                .exchange()
-//                .expectStatus().isEqualTo(400)
-//                .expectBody()
-//                .jsonPath("$.message").value(Matchers.startsWith("Required request parameter 'code' for method parameter type String is not present"))
-//                .jsonPath("$.time").value(Matchers.notNullValue());
-//    }
-//
-//    @Test
-//    @Disabled("не шмог подставить боди")
-//    public void testMissingRequestValueExceptionMissingBodyValidationError() {
-//        webTestClient.post()
-//                .uri(uriBuilder -> uriBuilder
-//                        .path("/testMissingRequestValueException")
-//                        .queryParam("code", "testCode")
-//                        .build())
-////                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-//                .bodyValue(new DemoDto("testName")).accept(APPLICATION_JSON)
-//                .exchange()
-//                .expectStatus().isEqualTo(400)
-////                .expectHeader().contentType(MediaType.APPLICATION_JSON_VALUE)
-//                .expectBody()
-////                .jsonPath("$.message").value(Matchers.startsWith("Required request parameter 'code' for method parameter type String is not present"))
-//                .jsonPath("$.time").value(Matchers.notNullValue());
-//    }
-//
-//    @Test
-//    public void notFoundException() {
-//        webTestClient.get()
-//                .uri("/testNotFoundException")
-//                .exchange()
-//                .expectStatus().isEqualTo(404)
-//                .expectBody()
-//                .jsonPath("$.message").value(Matchers.startsWith("not found exception"))
-//                .jsonPath("$.time").value(Matchers.notNullValue());
-//    }
+    @Test
+    void testMissingRequestValueExceptionMissingQueryParam() throws Exception {
+        mockMvc.perform(post("/testMissingRequestValueException"))
+                .andExpect(status().is(400))
+                .andExpect(jsonPath("$.message")
+                        .value(Matchers.startsWith("Required request parameter 'code' for method parameter type String is not present")))
+                .andExpect(jsonPath("$.time")
+                        .value(Matchers.notNullValue()));
+    }
+
+    @Test
+    void testMissingRequestValueExceptionMissingBodyValidationError() throws Exception {
+        mockMvc.perform(post("/testMissingRequestValueException")
+                        .queryParam("code", "testCode")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .content(asJsonString(new DemoDto("", 26)))
+                ).andExpect(status().is(400))
+                .andExpect(jsonPath("$.message").value(Matchers.startsWith("Request does not match contract")))
+                .andExpect(jsonPath("$.time").value(Matchers.notNullValue()));
+    }
+
+    @Test
+    void notFoundException() throws Exception {
+        mockMvc.perform(get("/testNotFoundException"))
+                .andExpect(status().is(404))
+                .andExpect(jsonPath("$.message").value(Matchers.startsWith("not found exception")));
+    }
 }

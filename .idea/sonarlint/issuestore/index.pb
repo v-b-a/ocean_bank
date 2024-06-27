@@ -53,10 +53,6 @@ Vaccount-api/src/test/kotlin/com/ocean/bank/account/controller/AccountController
 Taccount-api/src/test/kotlin/com/ocean/bank/account/controller/BaseIntegrationTest.kt,f/d/fdd69737fdf18017cd06abc841b563b75e4c3f41
 å
 \error-handling-spring-boot-starter/src/test/java/com/ocean/bank/error/handling/BaseTest.java,1/6/16bbb6c6f2a3fd397efea39df8e61c9b90ed1965
-¨
-|error-handling-spring-boot-starter/src/test/java/com/ocean/bank/error/handling/testEnvirament/controller/TestController.java,4/f/4f2f1fe8e5ec3f556ecb8696e1a6f54a47d4e59f
-û
-nerror-handling-spring-boot-starter/src/test/java/com/ocean/bank/error/handling/testEnvirament/dto/DemoDto.java,c/f/cf4bbdd8c19d85c50306281ac186e6ca192be838
 ~
 Naccount-api/src/main/kotlin/com/ocean/bank/account/controller/dto/AccountRs.kt,f/8/f810cb44df142c1e59d246b882767612266a04cb
 Å
@@ -69,8 +65,6 @@ Zaccount-api/src/main/kotlin/com/ocean/bank/account/controller/dto/UpdateAccount
 Qaccount-api/src/main/kotlin/com/ocean/bank/account/controller/dto/ExceptionDto.kt,e/2/e22f2ae0ef7c4099c45ff4f1de22df8cc7067d8a
 à
 Xaccount-api/src/main/kotlin/com/ocean/bank/account/controller/dto/AccountPropertiesRs.kt,7/9/79d2c9b8ff00a4a5a2299ca6ec3da79922587492
-§
-terror-handling-spring-boot-starter/src/test/java/com/ocean/bank/error/handling/testEnvirament/entity/DemoEntity.java,b/e/be8411247e6fa6f3d2cfc03be8a75087be515449
 
 Oaccount-api/src/main/kotlin/com/ocean/bank/account/repository/JdbcAccountDao.kt,3/9/3941684b34e52c17840e542e65c933fd1aa1e50b
 Ü
@@ -104,8 +98,6 @@ G.idea/sonarlint/issuestore/4/0/405af62e8d576d13d499739ec1c26cb985dc3f55,b/8/b8
 ^account-api/src/main/kotlin/com/ocean/bank/account/repository/entity/AccountStatusesHistory.kt,7/3/7319e3be25c752cb009cb1c333dba797223a6d51
 É
 Saccount-api/src/main/kotlin/com/ocean/bank/account/repository/entity/AccountType.kt,7/2/72f0ae567c8b5e893287551fa78b64ef561e9c3c
-¨
-|error-handling-spring-boot-starter/src/test/java/com/ocean/bank/error/handling/testEnvirament/repository/TestRepository.java,6/0/60806739716efc0255ebe66c75a2f099ded546d6
 ?
 settings.gradle,0/5/05efc8b1657769a27696d478ded1e95f38737233
 X
@@ -160,7 +152,5 @@ Mclient-api/src/main/java/com/ocean/bank/client/repository/entity/Address.java,
 Sclient-api/src/main/java/com/ocean/bank/client/repository/entity/SensitiveData.java,5/b/5bf5340af48315bb6f1f5a81b8728d37a1c9ec84
 ≠
 }error-handling-spring-boot-starter/src/test/java/com/ocean/bank/error/handling/testEnvironment/controller/TestController.java,7/d/7df83248904d4dec150924774b2197e47f44b05b
-ß
-werror-handling-spring-boot-starter/src/test/java/com/ocean/bank/error/handling/testEnvironment/service/TestService.java,1/d/1dc54f1ca557c583c3065b54b05ce7785d87c350
 ü
 oerror-handling-spring-boot-starter/src/test/java/com/ocean/bank/error/handling/testEnvironment/dto/DemoDto.java,d/9/d9a69ab552a8c0469f9e334179ce5f9baf680919

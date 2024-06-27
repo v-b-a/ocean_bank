@@ -21,6 +21,8 @@ ext {
     javaProjects = [
             'error-handling-spring-boot-starter',
     ]
+
+
 }
 
 allprojects {
@@ -28,6 +30,10 @@ allprojects {
     ext {
         springBootVersion = '3.3.0'
         kotlinVersion = '1.9.24'
+        jacocoExc = [
+                '**/dto/*',
+                '**/configuration/*',
+        ]
     }
 
     apply plugin: 'java'
@@ -80,30 +86,34 @@ allprojects {
     }
 
     jacocoTestReport {
+        finalizedBy jacocoTestCoverageVerification
+
         reports {
-            xml.enabled true
+            xml.enabled false
             html.enabled true
             csv.enabled false
         }
+
+
+
     }
 
     jacoco {
         toolVersion = "0.8.7"
     }
-    check.dependsOn jacocoTestCoverageVerification
+    check.dependsOn jacocoTestCoverageVerification, clean
 
     test {
         finalizedBy jacocoTestReport
     }
 
-    jacocoTestCoverageVerification { violationRules { rule { limit { minimum = 0.70 } } } }
-
-    // FIXME: не отрабатывает исключение в jacoco
-    ext {
-        jacocoExc = [
-                "**/dto/*",
-                "**/entity/*",
-        ]
+    jacocoTestCoverageVerification {
+        violationRules { rule { limit { minimum = 0.70 } } }
+        afterEvaluate {
+            classDirectories.setFrom(files(classDirectories.files.collect {
+                fileTree(dir: it, excludes: jacocoExc)
+            }))
+        }
     }
 }
 
