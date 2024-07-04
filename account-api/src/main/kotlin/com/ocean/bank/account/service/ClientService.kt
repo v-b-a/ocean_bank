@@ -11,7 +11,7 @@ class ClientService(
     val clientProperties: ClientProperties,
 ) {
     fun saveClient(clientCode: String) {
-        jdbcTemplateClientDao.saveClient(Client(code = clientCode, statusId = clientProperties.initialStatus))
+        jdbcTemplateClientDao.save(Client(code = clientCode, statusId = clientProperties.initialStatus))
     }
 
     fun updateClientStatus(clientCode: String, statusName: String) {

@@ -1,26 +1,42 @@
+plugins {
+    id 'maven-publish'
+}
+
 dependencies {
+    // spring starters
     compileOnly 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
-    implementation 'log4j:log4j'
+
+    // jackson
     implementation 'com.fasterxml.jackson.module:jackson-module-kotlin'
     implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml'
+    // lombok
     implementation 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 
-    // test
+    // testing
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     testImplementation 'org.springframework.boot:spring-boot-starter-validation'
 }
 
-test {
-    useJUnitPlatform()
-}
-
 publishing {
     publications {
         mavenJava(MavenPublication) {
+            groupId = 'com.ocean.bank'
+            artifactId = 'starter'
+            version = '0.0.2-SNAPSHOT'
+
+            versionMapping {
+                usage('java-api') {
+                    fromResolutionOf('runtimeClasspath')
+                }
+                usage('java-runtime') {
+                    fromResolutionResult()
+                }
+            }
+
             from components.java
         }
     }

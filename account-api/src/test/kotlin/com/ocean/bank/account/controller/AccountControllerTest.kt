@@ -1,5 +1,14 @@
 package com.ocean.bank.account.controller
 
+import com.ocean.bank.account.BaseTest.Companion.ACCOUNT_ACTIVE_STATUS
+import com.ocean.bank.account.BaseTest.Companion.ACCOUNT_BLOCKED_STATUS
+import com.ocean.bank.account.BaseTest.Companion.ACCOUNT_NUMBER
+import com.ocean.bank.account.BaseTest.Companion.ACCOUNT_NUMBER_2
+import com.ocean.bank.account.BaseTest.Companion.CLIENT_CODE
+import com.ocean.bank.account.BaseTest.Companion.PAYMENT_TYPE
+import com.ocean.bank.account.BaseTest.Companion.USD
+import com.ocean.bank.account.BaseTest.Companion.USER_ACCOUNT_NAME
+import com.ocean.bank.account.BaseTest.Companion.USER_ACCOUNT_NAME_2
 import com.ocean.bank.account.controller.dto.CreateAccountRq
 import com.ocean.bank.account.repository.JDBCTemplateClientDao
 import com.ocean.bank.account.repository.JdbcAccountDao
@@ -8,6 +17,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertAll
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.test.context.jdbc.Sql
 import java.math.BigDecimal
 import java.time.Instant
 
@@ -15,12 +25,13 @@ class AccountControllerTest : BaseIntegrationTest() {
 
     @Autowired
     lateinit var jdbcAccountDao: JdbcAccountDao
+
     @Autowired
     private lateinit var clientRepository: JDBCTemplateClientDao
 
     @Test
     fun createAccountTest() {
-        clientRepository.saveClient(createClient())
+        clientRepository.save(createClient())
 
         val response = webTestClient.post()
             .uri { it.path("").build() }
@@ -55,8 +66,9 @@ class AccountControllerTest : BaseIntegrationTest() {
     }
 
     @Test
+    @Sql("/scripts/cleanDatabase.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     fun getAccountInfoTest() {
-        clientRepository.saveClient(createClient())
+        clientRepository.save(createClient())
         jdbcAccountDao.save(createAccount(), createClient())
 
         val response = webTestClient.get()
@@ -76,7 +88,7 @@ class AccountControllerTest : BaseIntegrationTest() {
 
     @Test
     fun getAccountsTest() {
-        clientRepository.saveClient(createClient())
+        clientRepository.save(createClient())
         jdbcAccountDao.save(createAccount(), createClient())
         jdbcAccountDao.save(createAccount(ACCOUNT_NUMBER_2, USER_ACCOUNT_NAME_2), createClient())
 
@@ -98,7 +110,7 @@ class AccountControllerTest : BaseIntegrationTest() {
 
     @Test
     fun updateAccountStatusTest() {
-        clientRepository.saveClient(createClient())
+        clientRepository.save(createClient())
         jdbcAccountDao.save(createAccount(), createClient())
 
         val response = webTestClient.put()
@@ -116,15 +128,18 @@ class AccountControllerTest : BaseIntegrationTest() {
         )
     }
 
-    private fun createAccount(accountNumber: String = ACCOUNT_NUMBER, accountName: String = USER_ACCOUNT_NAME) =
-        Account(
-            clientId = 1,
-            accountNumber = accountNumber,
-            accountType = PAYMENT_TYPE,
-            currencyCode = USD,
-            accountName = accountName,
-            accountStatus = ACCOUNT_ACTIVE_STATUS,
-            createAt = Instant.now(),
-            previousDayBalance = BigDecimal.ZERO
-        )
+    private fun createAccount(
+        accountNumber: String = ACCOUNT_NUMBER,
+        accountName: String = USER_ACCOUNT_NAME,
+        clientId: Long = 1
+    ) = Account(
+        clientId = clientId,
+        accountNumber = accountNumber,
+        accountType = PAYMENT_TYPE,
+        currencyCode = USD,
+        accountName = accountName,
+        accountStatus = ACCOUNT_ACTIVE_STATUS,
+        createAt = Instant.now(),
+        previousDayBalance = BigDecimal.ZERO
+    )
 }

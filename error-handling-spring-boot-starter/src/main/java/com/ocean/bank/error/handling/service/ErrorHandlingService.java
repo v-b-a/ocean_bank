@@ -20,7 +20,7 @@ public class ErrorHandlingService {
 
     @ExceptionHandler({MissingRequestValueException.class, IllegalArgumentException.class})
     private ResponseEntity<ExceptionDto> handleMissingRequestHeaderException(Exception exception) {
-        log.warn(exception.getMessage());
+        log.warn(exception.getStackTrace().toString());
         return ResponseEntity.badRequest().body(
                 new ExceptionDto(getCurrentDateTime(), exception.getMessage(), null, 400)
         );
@@ -28,7 +28,7 @@ public class ErrorHandlingService {
 
     @ExceptionHandler({MissingKotlinParameterException.class, MethodArgumentNotValidException.class})
     private ResponseEntity<ExceptionDto> handleMissingKotlinParameter(Exception exception) {
-        log.warn(exception.getMessage());
+        log.warn(exception.getStackTrace().toString());
         return ResponseEntity.badRequest().body(
                 new ExceptionDto(getCurrentDateTime(), "Request does not match contract", null, 400)
         );
@@ -36,7 +36,7 @@ public class ErrorHandlingService {
 
     @ExceptionHandler(SQLException.class)
     private ResponseEntity<ExceptionDto> handlePSQLException(SQLException exception) {
-        log.warn(exception.getMessage());
+        log.warn(exception.getStackTrace().toString());
         return ResponseEntity.status(503).body(
                 new ExceptionDto(getCurrentDateTime(), exception.getMessage(), null, 503)
         );
@@ -44,7 +44,7 @@ public class ErrorHandlingService {
 
     @ExceptionHandler(NotFoundException.class)
     private ResponseEntity<ExceptionDto> handleNotFoundException(RuntimeException exception) {
-        log.warn(exception.getMessage());
+        log.warn(exception.getStackTrace().toString());
         return ResponseEntity.status(404).body(
                 new ExceptionDto(getCurrentDateTime(), exception.getMessage(), null, 404)
         );

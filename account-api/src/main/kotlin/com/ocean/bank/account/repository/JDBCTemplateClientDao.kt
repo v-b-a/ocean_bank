@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component
 class JDBCTemplateClientDao(
     val jdbcTemplate: JdbcTemplate
 ) {
-    fun saveClient(client: Client) {
+    fun save(client: Client) {
         val setter = PreparedStatementSetter { pss ->
             pss.setString(1, client.code)
             pss.setLong(2, client.statusId)

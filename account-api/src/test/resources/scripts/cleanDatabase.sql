@@ -1,2 +1,3 @@
 TRUNCATE TABLE clients RESTART IDENTITY CASCADE;
+SELECT setval('clients_client_id_seq', 1, false);
 TRUNCATE TABLE accounts RESTART IDENTITY CASCADE;

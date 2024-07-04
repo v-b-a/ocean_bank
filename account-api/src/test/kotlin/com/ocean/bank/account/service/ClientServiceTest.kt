@@ -18,7 +18,7 @@ class ClientServiceTest : BaseServiceTest() {
     @Test
     fun saveClientTest() {
         clientService.saveClient(CLIENT_CODE)
-        verify(jdbcTemplateClientDao).saveClient(Client(code = CLIENT_CODE, statusId = clientProperties.initialStatus))
+        verify(jdbcTemplateClientDao).save(Client(code = CLIENT_CODE, statusId = clientProperties.initialStatus))
     }
 
     @Nested

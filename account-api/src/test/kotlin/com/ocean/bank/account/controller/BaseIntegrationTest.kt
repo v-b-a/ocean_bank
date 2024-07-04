@@ -1,27 +1,24 @@
 package com.ocean.bank.account.controller
 
-import com.ocean.bank.account.BaseTest
+import com.ocean.bank.account.BaseTest.Companion.CLIENT_CODE
 import com.ocean.bank.account.configuration.TestContainerPostgresConfig
 import com.ocean.bank.account.repository.entity.Client
 import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.context.ApplicationContext
-import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.jdbc.Sql
 import org.springframework.test.web.reactive.server.WebTestClient
 import org.springframework.test.web.servlet.client.MockMvcWebTestClient
 import org.springframework.web.context.WebApplicationContext
-import org.testcontainers.junit.jupiter.Testcontainers
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-@Testcontainers
-@ContextConfiguration(classes = [TestContainerPostgresConfig::class])
-@ExtendWith(TestContainerPostgresConfig::class)
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Sql("/scripts/setUpDatabase.sql", "/scripts/insertMockData.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_CLASS)
 @Sql("/scripts/cleanDatabase.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-class BaseIntegrationTest : BaseTest() {
+@Sql("/scripts/cleanMockData.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_CLASS)
+class BaseIntegrationTest : TestContainerPostgresConfig() {
     @Autowired
     lateinit var wac: WebApplicationContext
 

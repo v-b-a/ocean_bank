@@ -1,111 +1,57 @@
-buildscript {
-    ext {
-        springBootVersion = '3.3.0'
-        kotlinVersion = '1.9.24'
-    }
-
-    repositories {
-        mavenLocal()
-        mavenCentral()
-    }
-
-    dependencies {
-        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
-        classpath "io.spring.gradle:dependency-management-plugin:1.1.5"
-        classpath "org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin:$kotlinVersion"
-        classpath "org.jetbrains.kotlin.plugin.spring:org.jetbrains.kotlin.plugin.spring.gradle.plugin:$kotlinVersion"
-    }
+plugins {
+    id 'java'
+    id 'jacoco'
+    id 'org.springframework.boot' version "3.3.0"
+    id 'io.spring.dependency-management' version '1.1.5'
+    id 'org.jetbrains.kotlin.jvm' version "1.9.24"
+    id 'org.jetbrains.kotlin.plugin.spring' version "1.9.24"
+    id 'org.jetbrains.kotlin.plugin.jpa' version "1.9.24"
 }
 
 ext {
-    javaProjects = [
-            'error-handling-spring-boot-starter',
+    kotlinLoggingVersion = '3.0.5'
+    mockitoKotlinVersion = '5.2.1'
+    mockitoInlineVersion = '2.13.0'
+    kotlinProjects = [
+            project(':account-api')
     ]
-
-
 }
 
-allprojects {
+configure(kotlinProjects) {
+    apply plugin: 'org.jetbrains.kotlin.jvm'
+    apply plugin: 'org.jetbrains.kotlin.plugin.spring'
+    apply plugin: 'org.jetbrains.kotlin.plugin.jpa'
+}
 
-    ext {
-        springBootVersion = '3.3.0'
-        kotlinVersion = '1.9.24'
-        jacocoExc = [
-                '**/dto/*',
-                '**/configuration/*',
-        ]
-    }
+subprojects {
+    group = 'com.ocean.bank'
 
     apply plugin: 'java'
     apply plugin: 'jacoco'
-    apply plugin: 'kotlin'
-    apply plugin: 'kotlin-spring'
-    apply plugin: 'org.jetbrains.kotlin.jvm'
     apply plugin: 'org.springframework.boot'
     apply plugin: 'io.spring.dependency-management'
-    apply plugin: 'maven-publish'
+
+    ext {
+        springDependencyManagementVersion = '1.1.5'
+        jacocoExc = ['**/dto/*', '**/configuration/*']
+        jacocoVersion = '0.8.7'
+        kotlinLoggingVersion = '3.0.5'
+        errorHandlingVersion = '0.0.2-SNAPSHOT'
+    }
+
 
     repositories {
         mavenLocal()
         mavenCentral()
     }
-    dependencyManagement {
-        dependencies {
-            /* database */
-            dependency 'org.postgresql:postgresql:42.6.0'
-
-            dependency 'org.projectlombok:lombok:1.18.32'
-
-            // provide JDBC Template
-            dependency "org.springframework.boot:spring-boot-starter-jdbc:$springBootVersion"
-
-            dependency "org.springframework.boot:spring-boot-starter-validation:$springBootVersion"
-            dependency "org.springframework.boot:spring-boot-starter-web:$springBootVersion"
-            dependency "org.springframework.boot:spring-boot-starter-data-jpa:$springBootVersion"
-            dependency "org.springframework.boot:spring-boot-configuration-processor:$springBootVersion"
-            dependency 'org.springframework.cloud:spring-cloud-starter-openfeign:4.1.0'
-            dependency "com.fasterxml.jackson.module:jackson-module-kotlin:2.17.1"
-            dependency "com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.17.1"
-            dependency "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"
-            // logging
-            dependency 'io.github.microutils:kotlin-logging:3.0.5'
-            dependency 'log4j:log4j:1.2.17'
-
-            // test
-            dependency "org.springframework.boot:spring-boot-starter-test:$springBootVersion"
-            dependency "org.springframework.boot:spring-boot-testcontainers:$springBootVersion"
-            dependency "org.testcontainers:junit-jupiter:1.19.7"
-            dependency "org.testcontainers:postgresql:1.19.7"
-            dependency "org.junit.platform:junit-platform-launcher:1.9.2"
-
-            // mockito
-            dependency 'org.mockito.kotlin:mockito-kotlin:5.2.1'
-            dependency 'org.mockito:mockito-inline:2.13.0'
-            dependency "org.springframework.boot:spring-boot-starter-webflux:$springBootVersion"
-        }
-    }
 
     jacocoTestReport {
+        dependsOn test
         finalizedBy jacocoTestCoverageVerification
-
-        reports {
-            xml.enabled false
-            html.enabled true
-            csv.enabled false
-        }
-
-
-
     }
 
-    jacoco {
-        toolVersion = "0.8.7"
-    }
-    check.dependsOn jacocoTestCoverageVerification, clean
-
-    test {
-        finalizedBy jacocoTestReport
-    }
+    jacoco { toolVersion = "${jacocoVersion}" }
+    check.dependsOn jacocoTestCoverageVerification, jacocoTestReport, clean
 
     jacocoTestCoverageVerification {
         violationRules { rule { limit { minimum = 0.70 } } }
@@ -115,12 +61,12 @@ allprojects {
             }))
         }
     }
+
+
+    java { sourceCompatibility = '17' }
+
+    test { useJUnitPlatform() }
 }
 
-test {
-    useJUnitPlatform()
-}
 
-wrapper {
-    gradleVersion = '7.6.1'
-}
+wrapper { gradleVersion = '7.6.1' }

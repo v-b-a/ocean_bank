@@ -1,5 +1,7 @@
 package com.ocean.bank.account.controller
 
+import com.ocean.bank.account.BaseTest.Companion.CLIENT_CODE
+import com.ocean.bank.account.BaseTest.Companion.CLIENT_CODE_2
 import com.ocean.bank.account.repository.JDBCTemplateClientDao
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -30,7 +32,7 @@ class ClientControllerTest : BaseIntegrationTest() {
 
     @Test
     fun updateClientStatusTest() {
-        clientRepository.saveClient(createClient())
+        clientRepository.save(createClient())
 
         webTestClient.put()
             .uri { it.path(CLIENT_PATH).queryParam("status", "ACTIVE").build() }
