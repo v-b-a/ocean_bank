@@ -5,7 +5,7 @@ import com.ocean.bank.account.repository.entity.Account
 import com.ocean.bank.account.repository.entity.AccountType
 import com.ocean.bank.account.repository.entity.Client
 import com.ocean.bank.account.repository.JdbcAccountDao
-import com.ocean.bank.account.repository.JDBCTemplateClientDao
+import com.ocean.bank.account.repository.JdbcTemplateClientDao
 import com.ocean.bank.error.handling.excepiton.NotFoundException
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -27,7 +27,7 @@ import java.time.Instant
 
 class AccountServiceTest : BaseServiceTest() {
     private val jdbcAccountDao: JdbcAccountDao = mock()
-    private val jdbcTemplateClientDao: JDBCTemplateClientDao = mock()
+    private val jdbcTemplateClientDao: JdbcTemplateClientDao = mock()
 
     private val accountService: AccountService = AccountService(jdbcTemplateClientDao, jdbcAccountDao)
 

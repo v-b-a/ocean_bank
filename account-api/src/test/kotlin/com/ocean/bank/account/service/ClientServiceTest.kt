@@ -2,13 +2,13 @@ package com.ocean.bank.account.service
 
 import com.ocean.bank.account.configuration.ClientProperties
 import com.ocean.bank.account.repository.entity.Client
-import com.ocean.bank.account.repository.JDBCTemplateClientDao
+import com.ocean.bank.account.repository.JdbcTemplateClientDao
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.*
 
 class ClientServiceTest : BaseServiceTest() {
-    private val jdbcTemplateClientDao: JDBCTemplateClientDao = mock()
+    private val jdbcTemplateClientDao: JdbcTemplateClientDao = mock()
     private val clientProperties: ClientProperties = mock()
 
     private val clientService =

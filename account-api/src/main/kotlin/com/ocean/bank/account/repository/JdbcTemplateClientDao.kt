@@ -6,7 +6,7 @@ import org.springframework.jdbc.core.PreparedStatementSetter
 import org.springframework.stereotype.Component
 
 @Component
-class JDBCTemplateClientDao(
+class JdbcTemplateClientDao(
     val jdbcTemplate: JdbcTemplate
 ) {
     fun save(client: Client) {

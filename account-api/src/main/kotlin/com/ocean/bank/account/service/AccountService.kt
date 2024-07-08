@@ -5,7 +5,7 @@ import com.ocean.bank.account.controller.dto.CreateAccountRq
 import com.ocean.bank.account.controller.dto.UpdateAccountStatusRs
 import com.ocean.bank.account.repository.entity.Account
 import com.ocean.bank.account.repository.JdbcAccountDao
-import com.ocean.bank.account.repository.JDBCTemplateClientDao
+import com.ocean.bank.account.repository.JdbcTemplateClientDao
 import com.ocean.bank.error.handling.excepiton.NotFoundException
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
@@ -13,7 +13,7 @@ import java.time.Instant
 
 @Service
 class AccountService(
-    val jdbcTemplateClientDao: JDBCTemplateClientDao,
+    val jdbcTemplateClientDao: JdbcTemplateClientDao,
     val jdbcAccountDao: JdbcAccountDao,
 ) {
     fun createAccount(request: CreateAccountRq, clientCode: String): AccountRs {

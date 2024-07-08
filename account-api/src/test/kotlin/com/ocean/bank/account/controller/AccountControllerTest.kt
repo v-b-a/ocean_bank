@@ -10,7 +10,7 @@ import com.ocean.bank.account.BaseTest.Companion.USD
 import com.ocean.bank.account.BaseTest.Companion.USER_ACCOUNT_NAME
 import com.ocean.bank.account.BaseTest.Companion.USER_ACCOUNT_NAME_2
 import com.ocean.bank.account.controller.dto.CreateAccountRq
-import com.ocean.bank.account.repository.JDBCTemplateClientDao
+import com.ocean.bank.account.repository.JdbcTemplateClientDao
 import com.ocean.bank.account.repository.JdbcAccountDao
 import com.ocean.bank.account.repository.entity.Account
 import org.assertj.core.api.Assertions.assertThat
@@ -27,7 +27,7 @@ class AccountControllerTest : BaseIntegrationTest() {
     lateinit var jdbcAccountDao: JdbcAccountDao
 
     @Autowired
-    private lateinit var clientRepository: JDBCTemplateClientDao
+    private lateinit var clientRepository: JdbcTemplateClientDao
 
     @Test
     fun createAccountTest() {

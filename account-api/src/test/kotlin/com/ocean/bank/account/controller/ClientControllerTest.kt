@@ -2,7 +2,7 @@ package com.ocean.bank.account.controller
 
 import com.ocean.bank.account.BaseTest.Companion.CLIENT_CODE
 import com.ocean.bank.account.BaseTest.Companion.CLIENT_CODE_2
-import com.ocean.bank.account.repository.JDBCTemplateClientDao
+import com.ocean.bank.account.repository.JdbcTemplateClientDao
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertAll
@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired
 class ClientControllerTest : BaseIntegrationTest() {
 
     @Autowired
-    private lateinit var clientRepository: JDBCTemplateClientDao
+    private lateinit var clientRepository: JdbcTemplateClientDao
 
     @Test
     fun addClientTest() {

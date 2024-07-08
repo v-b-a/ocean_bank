@@ -11,18 +11,19 @@ import java.sql.ResultSet
 import java.sql.SQLException
 import java.sql.Timestamp
 import java.time.Instant
+import javax.sql.DataSource
 
 @Component
 class JdbcAccountDao(
-    private val connectionPoolManager: ConnectionPoolManager
+    private val dataSource: DataSource
 ) {
     fun updateStatusByAccountNumber(accountNumber: String, clientCode: String, statusCode: String) {
-
-        connectionPoolManager.getConnection().use { connection ->
+        logger.info { "Starting update account status for account number $accountNumber and client $clientCode" }
+        dataSource.connection.use { connection ->
             try {
                 connection.autoCommit = false
                 val account = connection.getAccount(accountNumber, clientCode)
-                    ?: throw NotFoundException("Account with account number $accountNumber for client $clientCode not found")
+                    ?: throw NotFoundException("Account number $accountNumber for client $clientCode not found")
                 connection.saveAccountStatusesHistory(account, statusCode)
                 connection.updateAccounts(accountNumber, account, statusCode)
                 connection.commit()
@@ -36,6 +37,7 @@ class JdbcAccountDao(
 
     private fun Connection.getAccount(accountNumber: String, clientCode: String): Account? =
         this.prepareStatement(GET_ACCOUNT_BY_ACCOUNT_NUMBER).use { statement ->
+            logger.info { "Starting get account for account number $accountNumber and client $clientCode" }
             statement.queryTimeout = 30
             statement.setString(1, accountNumber)
             statement.setString(2, clientCode)
@@ -51,15 +53,8 @@ class JdbcAccountDao(
                 val previousDayBalance = resultSet.getBigDecimal("previous_day_balance")
                 val createAt = resultSet.getTimestamp("created_at").toInstant()
                 return Account(
-                    accountId,
-                    clientId,
-                    accountNumber,
-                    accountName,
-                    currencyCode,
-                    accountType,
-                    statusCode,
-                    previousDayBalance,
-                    createAt
+                    accountId, clientId, accountNumber, accountName, currencyCode,
+                    accountType, statusCode, previousDayBalance, createAt
                 )
             } catch (e: SQLException) {
                 e.printStackTrace()
@@ -68,6 +63,7 @@ class JdbcAccountDao(
         }
 
     private fun Connection.saveAccountStatusesHistory(account: Account, statusCode: String) {
+        logger.info { "Starting save account statuses history for account ${account.accountId} with status code $statusCode" }
         this.prepareStatement(SAVE_TO_ACCOUNT_STATUS_HISTORY).use { statement ->
             statement.setString(1, account.accountStatus)
             statement.setString(2, statusCode)
@@ -85,6 +81,7 @@ class JdbcAccountDao(
     private fun Connection.updateAccounts(accountNumber: String, account: Account, statusCode: String) =
         this.prepareStatement(UPDATE_ACCOUNT_STATUS_IN_ACCOUNTS)
             .use { statement ->
+                logger.info { "Starting update accounts for account ${account.accountId} with status code $statusCode" }
                 statement.setString(1, statusCode)
                 statement.setString(2, accountNumber)
                 statement.setLong(3, account.clientId)
@@ -94,8 +91,9 @@ class JdbcAccountDao(
             }
 
     fun save(account: Account, client: Client): Account {
-        connectionPoolManager.getConnection().use { connection ->
+        dataSource.connection.use { connection ->
             connection.prepareStatement(INSERT_ACCOUNT).use { statement ->
+                logger.info { "Saving account ${account.accountId}" }
                 statement.setLong(1, account.clientId)
                 statement.setString(2, account.currencyCode)
                 statement.setBigDecimal(3, account.previousDayBalance)
@@ -117,11 +115,11 @@ class JdbcAccountDao(
     }
 
     fun findAccountByAccountNumberAndClientId(accountNumber: String, client: Client): Account? {
-        return connectionPoolManager.getConnection().getAccount(accountNumber, client.code)
+        return dataSource.connection.getAccount(accountNumber, client.code)
     }
 
     fun findAllByClientId(clientId: Long): List<Account> {
-        connectionPoolManager.getConnection().use { connection ->
+        dataSource.connection.use { connection ->
             connection.prepareStatement(SELECT_ACCOUNTS_BY_CLIENT).use { statement ->
                 statement.setLong(1, clientId)
                 val resultSet = statement.executeQuery()
@@ -135,7 +133,7 @@ class JdbcAccountDao(
     }
 
     fun findAccountByAccountNumber(accountNumber: String): Account? {
-        connectionPoolManager.getConnection().use { connection ->
+        dataSource.connection.use { connection ->
             connection.prepareStatement(SELECT_ACCOUNT_BY_ACCOUNT_ID).use { statement ->
                 statement.setString(1, accountNumber)
                 val resultSet = statement.executeQuery()
@@ -144,21 +142,10 @@ class JdbcAccountDao(
         }
     }
 
-    private fun accountConverter(resultSet: ResultSet) = Account(
-        resultSet.getLong("account_id"),
-        resultSet.getLong("client_id"),
-        resultSet.getString("account_number"),
-        resultSet.getString("name"),
-        resultSet.getString("currency_code"),
-        resultSet.getString("account_type_code"),
-        resultSet.getString("account_status_code"),
-        resultSet.getBigDecimal("previous_day_balance"),
-        resultSet.getTimestamp("created_at").toInstant()
-    )
-
     fun findAccountTypeByTypeCode(accountType: String): AccountType? {
-        connectionPoolManager.getConnection().use { connection ->
+        dataSource.connection.use { connection ->
             connection.prepareStatement(SELECT_ACCOUNT_TYPE_BY_TYPE_CODE).use { statement ->
+                logger.info { "Get account type by type code $accountType" }
                 statement.setLong(1, accountType.toLong())
                 val resultSet = statement.executeQuery()
                 return if (resultSet.next()) {
@@ -174,6 +161,17 @@ class JdbcAccountDao(
         }
     }
 
+    private fun accountConverter(resultSet: ResultSet) = Account(
+        resultSet.getLong("account_id"),
+        resultSet.getLong("client_id"),
+        resultSet.getString("account_number"),
+        resultSet.getString("name"),
+        resultSet.getString("currency_code"),
+        resultSet.getString("account_type_code"),
+        resultSet.getString("account_status_code"),
+        resultSet.getBigDecimal("previous_day_balance"),
+        resultSet.getTimestamp("created_at").toInstant()
+    )
 
     companion object : KLogging() {
         const val GET_ACCOUNT_BY_ACCOUNT_NUMBER = """

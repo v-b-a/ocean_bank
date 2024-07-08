@@ -5,7 +5,6 @@ import com.ocean.bank.error.handling.excepiton.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingRequestValueException;
 import com.fasterxml.jackson.module.kotlin.MissingKotlinParameterException;
