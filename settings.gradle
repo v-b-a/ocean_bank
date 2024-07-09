@@ -1,4 +1,4 @@
 rootProject.name = 'ocean_bank'
-include 'account-api'
-include 'error-handling-spring-boot-starter'
-include 'client-api'
+include 'business-services:account-api'
+include 'business-services:client-api'
+include 'starters-libraries:error-handling-spring-boot-starter'

@@ -8,12 +8,16 @@ plugins {
     id 'org.jetbrains.kotlin.plugin.jpa' version "1.9.24"
 }
 
+repositories {
+    mavenCentral()
+}
+
 ext {
     kotlinLoggingVersion = '3.0.5'
     mockitoKotlinVersion = '5.2.1'
     mockitoInlineVersion = '2.13.0'
     kotlinProjects = [
-            project(':account-api')
+            project('business-services:account-api')
     ]
 }
 
