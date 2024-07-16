@@ -27,5 +27,5 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-webflux'
 
     // own starters
-    implementation "com.ocean.bank:error-handling-spring-boot-starter:$errorHandlingVersion"
+    implementation "com.ocean.bank:error-handling-starter:$errorHandlingVersion"
 }
