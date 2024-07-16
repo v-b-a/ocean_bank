@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertAll
 import org.springframework.beans.factory.annotation.Autowired
 
-class ClientControllerTest : BaseIntegrationTest() {
+class ClientControllerTest : BaseControllerTest() {
 
     @Autowired
     private lateinit var clientRepository: JdbcTemplateClientDao

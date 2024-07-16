@@ -1,4 +1,4 @@
-package com.ocean.bank.account.configuration
+package com.ocean.bank.test.lib
 
 import org.junit.jupiter.api.extension.AfterAllCallback
 import org.junit.jupiter.api.extension.ExtensionContext

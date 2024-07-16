@@ -21,7 +21,7 @@ import org.springframework.test.context.jdbc.Sql
 import java.math.BigDecimal
 import java.time.Instant
 
-class AccountControllerTest : BaseIntegrationTest() {
+class AccountControllerTest : BaseControllerTest() {
 
     @Autowired
     lateinit var jdbcAccountDao: JdbcAccountDao

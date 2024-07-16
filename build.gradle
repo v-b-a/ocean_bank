@@ -17,7 +17,8 @@ ext {
     mockitoKotlinVersion = '5.2.1'
     mockitoInlineVersion = '2.13.0'
     kotlinProjects = [
-            project('business-services:account-api')
+            project('business-services:account-api'),
+            project('starters-libraries:test-lib')
     ]
 }
 

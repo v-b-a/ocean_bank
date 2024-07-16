@@ -28,4 +28,5 @@ dependencies {
 
     // own starters
     implementation "com.ocean.bank:error-handling-starter:$errorHandlingVersion"
+    testImplementation project(":starters-libraries:test-lib")
 }
