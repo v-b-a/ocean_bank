@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 @Document(collection = "client_status")
 @Data
+@AllArgsConstructor
 public class Status {
     @Id
     private String id;
