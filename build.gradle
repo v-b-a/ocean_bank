@@ -41,7 +41,8 @@ subprojects {
         jacocoExc = ['**/dto/*', '**/configuration/*']
         jacocoVersion = '0.8.7'
         kotlinLoggingVersion = '3.0.5'
-        errorHandlingVersion = '0.0.4-SNAPSHOT'
+        errorHandlingVersion = '0.0.6-SNAPSHOT'
+        springCloudVersion = "2023.0.3"
     }
 
 
@@ -64,6 +65,12 @@ subprojects {
             classDirectories.setFrom(files(classDirectories.files.collect {
                 fileTree(dir: it, excludes: jacocoExc)
             }))
+        }
+    }
+
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
         }
     }
 

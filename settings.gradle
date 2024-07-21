@@ -1,5 +1,9 @@
+plugins {
+    id 'org.gradle.toolchains.foojay-resolver-convention' version '0.8.0'
+}
 rootProject.name = 'ocean_bank'
 include 'business-services:account-api'
 include 'business-services:client-api'
 include 'starters-libraries:error-handling-starter'
 include 'starters-libraries:test-lib'
+include 'spring-cloud-services:eureka-server'

@@ -61,6 +61,4 @@ public class ErrorHandlingService {
     private String getCurrentDateTime() {
         return java.time.LocalDateTime.now().toString();
     }
-
-
 }

@@ -12,6 +12,8 @@
             <option value="$PROJECT_DIR$/business-services" />
             <option value="$PROJECT_DIR$/business-services/account-api" />
             <option value="$PROJECT_DIR$/business-services/client-api" />
+            <option value="$PROJECT_DIR$/spring-cloud-services" />
+            <option value="$PROJECT_DIR$/spring-cloud-services/eureka-server" />
             <option value="$PROJECT_DIR$/starters-libraries" />
             <option value="$PROJECT_DIR$/starters-libraries/error-handling-starter" />
             <option value="$PROJECT_DIR$/starters-libraries/test-lib" />
