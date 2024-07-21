@@ -142,6 +142,19 @@ class JdbcAccountDao(
         }
     }
 
+    fun findAllAccounts(): List<Account> {
+        dataSource.connection.use { connection ->
+            connection.prepareStatement(SELECT_ALL_ACCOUNTS).use { statement ->
+                val resultSet = statement.executeQuery()
+                val accounts = mutableListOf<Account>()
+                while (resultSet.next()) {
+                    accounts.add(accountConverter(resultSet))
+                }
+                return accounts
+            }
+        }
+    }
+
     fun findAccountTypeByTypeCode(accountType: String): AccountType? {
         dataSource.connection.use { connection ->
             connection.prepareStatement(SELECT_ACCOUNT_TYPE_BY_TYPE_CODE).use { statement ->
@@ -202,6 +215,8 @@ class JdbcAccountDao(
         """
 
         const val SELECT_ACCOUNT_BY_ACCOUNT_ID = "SELECT * FROM accounts WHERE account_number = ?;"
+
+        const val SELECT_ALL_ACCOUNTS = "SELECT * FROM accounts;"
 
         const val SELECT_ACCOUNT_TYPE_BY_TYPE_CODE = """
             SELECT name, description, type_code

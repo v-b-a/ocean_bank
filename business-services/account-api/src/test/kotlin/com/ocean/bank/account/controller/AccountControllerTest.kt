@@ -5,6 +5,7 @@ import com.ocean.bank.account.BaseTest.Companion.ACCOUNT_BLOCKED_STATUS
 import com.ocean.bank.account.BaseTest.Companion.ACCOUNT_NUMBER
 import com.ocean.bank.account.BaseTest.Companion.ACCOUNT_NUMBER_2
 import com.ocean.bank.account.BaseTest.Companion.CLIENT_CODE
+import com.ocean.bank.account.BaseTest.Companion.CLIENT_ID
 import com.ocean.bank.account.BaseTest.Companion.PAYMENT_TYPE
 import com.ocean.bank.account.BaseTest.Companion.USD
 import com.ocean.bank.account.BaseTest.Companion.USER_ACCOUNT_NAME
@@ -48,20 +49,12 @@ class AccountControllerTest : BaseControllerTest() {
             { assertThat(response.jsonPath("$.accountNumber").isNotEmpty) }
         )
 
-        /*
-        val countRowsInTableWhere = JdbcTestUtils.countRowsInTableWhere(jdbcTemplate, "accounts", "account_number = '$ACCOUNT_NUMBER'")
-        assertThat(countRowsInTableWhere).isEqualTo(1)
-         */
-
-//         FIXME: данные вроде сохраняются, но достать их снова я не могу
-//        val account = jdbcAccountDao.findAccountByAccountNumber(ACCOUNT_NUMBER)
-//        assertAll(
-//            { assertThat(account).isNotNull },
-//            { assertThat(account?.accountNumber).isEqualTo(ACCOUNT_NUMBER) },
-//            { assertThat(account?.accountName).isEqualTo(USER_ACCOUNT_NAME) },
-//            { assertThat(account?.accountType).isEqualTo(PAYMENT_TYPE) },
-//            { assertThat(account?.currencyCode).isEqualTo(USD) }
-//        )
+        val account = jdbcAccountDao.findAllByClientId(CLIENT_ID).find { it.accountName == USER_ACCOUNT_NAME }
+        assertAll(
+            { assertThat(account).isNotNull },
+            { assertThat(account?.accountType).isEqualTo(PAYMENT_TYPE) },
+            { assertThat(account?.currencyCode).isEqualTo(USD) }
+        )
 
     }
 

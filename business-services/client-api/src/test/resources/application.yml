@@ -1,0 +1,8 @@
+spring:
+  data:
+    mongodb:
+      embedded:
+        version: 3.6.3
+      database: clients
+      uri: mongodb://localhost:27017
+      auto-index-creation: true

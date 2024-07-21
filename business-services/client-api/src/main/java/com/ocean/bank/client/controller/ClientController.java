@@ -6,6 +6,7 @@ import com.ocean.bank.client.controller.dto.ClientRs;
 import com.ocean.bank.client.controller.dto.ConfirmRq;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,8 +22,10 @@ import java.util.List;
 public class ClientController {
     private ClientService clientService;
 
-    @PostMapping("/")
-    public ClientRs addClient(@RequestBody @Valid ClientInfo clientInfo) {
+    @PostMapping
+    public ClientRs addClient(
+            @RequestBody @Valid ClientInfo clientInfo
+    ) {
         return clientService.createClient(clientInfo);
     }
 
@@ -34,7 +37,7 @@ public class ClientController {
         return clientService.confirmClient(clientCode, confirmCode);
     }
 
-    @GetMapping("/")
+    @GetMapping("/internal")
     public List<ClientRs> getClients() {
         return clientService.getClients();
     }

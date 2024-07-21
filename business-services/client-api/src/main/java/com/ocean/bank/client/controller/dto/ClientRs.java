@@ -11,7 +11,6 @@ import lombok.Builder;
 public class ClientRs {
     private String firstName;
     private String lastName;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String surname;
     private String clientCode;
     private String status;

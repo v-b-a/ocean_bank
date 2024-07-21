@@ -1,9 +1,10 @@
 package com.ocean.bank.error.handling.service;
 
 import com.ocean.bank.error.handling.dto.ExceptionDto;
+import com.ocean.bank.error.handling.excepiton.LoginException;
 import com.ocean.bank.error.handling.excepiton.NotFoundException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingRequestValueException;
@@ -15,7 +16,7 @@ import java.sql.SQLException;
 
 @RestControllerAdvice
 public class ErrorHandlingService {
-    private static final Logger log = LoggerFactory.getLogger(ErrorHandlingService.class);
+    private static final Logger log = LogManager.getLogger(ErrorHandlingService.class);
 
     @ExceptionHandler({MissingRequestValueException.class, IllegalArgumentException.class})
     private ResponseEntity<ExceptionDto> handleMissingRequestHeaderException(Exception exception) {
@@ -46,6 +47,14 @@ public class ErrorHandlingService {
         log.warn(exception.getStackTrace().toString());
         return ResponseEntity.status(404).body(
                 new ExceptionDto(getCurrentDateTime(), exception.getMessage(), null, 404)
+        );
+    }
+
+    @ExceptionHandler(LoginException.class)
+    private ResponseEntity<ExceptionDto> handleLoginException(RuntimeException exception) {
+        log.warn(exception.getStackTrace().toString());
+        return ResponseEntity.status(401).body(
+                new ExceptionDto(getCurrentDateTime(), exception.getMessage(), null, 401)
         );
     }
 

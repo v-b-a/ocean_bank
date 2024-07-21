@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.LocalDate;
 
 @Builder
-@Document(collection = "clients-main")
+@Document(collection = "clients_main")
 @Data
 public class Client {
     @Id
@@ -18,11 +18,11 @@ public class Client {
     private String firstName;
     private String lastName;
     private String surname;
-    private PersonalDocument personalDocument;
+    private IdentificationDocument identificationDocument;
     private Address address;
     private SensitiveData sensitiveData;
     private String phoneNumber;
-    private String clientStatus;
+    private String status;
     @CreatedDate
     private LocalDate createAt;
 }

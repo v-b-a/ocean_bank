@@ -4,6 +4,7 @@ open class BaseTest {
     companion object {
         const val CLIENT_CODE = "AAAAA"
         const val CLIENT_CODE_2 = "AAAAB"
+        const val CLIENT_ID = 1L
         const val ACCOUNT_NUMBER = "40817000000000001"
         const val ACCOUNT_NUMBER_2 = "40817000000000002"
         const val PAYMENT_TYPE = "PMT"

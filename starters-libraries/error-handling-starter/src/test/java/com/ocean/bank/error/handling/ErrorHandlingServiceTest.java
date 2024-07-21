@@ -52,4 +52,11 @@ class ErrorHandlingServiceTest extends BaseTest {
                 .andExpect(status().is(404))
                 .andExpect(jsonPath("$.message").value(Matchers.startsWith("not found exception")));
     }
+
+    @Test
+    void loginException() throws Exception {
+        mockMvc.perform(get("/testLoginException"))
+                .andExpect(status().is(401))
+                .andExpect(jsonPath("$.message").value(Matchers.startsWith("login exception")));
+    }
 }

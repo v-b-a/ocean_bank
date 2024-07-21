@@ -3,9 +3,7 @@ package com.ocean.bank.client.service;
 import com.ocean.bank.client.controller.dto.ClientInfo;
 import com.ocean.bank.client.controller.dto.ClientRs;
 import com.ocean.bank.client.repository.ClientRepository;
-import com.ocean.bank.client.repository.entity.Address;
 import com.ocean.bank.client.repository.entity.Client;
-import com.ocean.bank.client.repository.entity.PersonalDocument;
 import com.ocean.bank.client.repository.entity.Status;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,30 +21,16 @@ public class EntityMapper {
 
 
     public Client toNewClientConverter(ClientInfo clientRq, Status status) {
-        Address clientAddress = Address.builder()
-                .registrationAddress(clientRq.getAddress().getRegistrationAddress())
-                .actualAddress(clientRq.getAddress().getActualAddress())
-                .registrationDate(clientRq.getAddress().getRegistrationDate())
-                .build();
-        PersonalDocument clientPersonalDocument = PersonalDocument.builder()
-                .documentName(clientRq.getPersonalDocument().getDocumentName())
-                .number(clientRq.getPersonalDocument().getNumber())
-                .code(clientRq.getPersonalDocument().getCode())
-                .issueDate(clientRq.getPersonalDocument().getIssueDate())
-                .issuerCode(clientRq.getPersonalDocument().getIssuerCode())
-                .issuerName(clientRq.getPersonalDocument().getIssuerName())
-                .build();
-
         return Client.builder()
                 .clientCode(generateClientCode())
-                .address(clientAddress)
-                .personalDocument(clientPersonalDocument)
+                .address(clientRq.getAddress())
+                .identificationDocument(clientRq.getIdentificationDocument())
                 .firstName(clientRq.getFirstName())
                 .lastName(clientRq.getLastName())
                 .surname(clientRq.getSurname())
                 .phoneNumber(clientRq.getPhoneNumber())
                 .sensitiveData(clientRq.getSensitiveData())
-                .clientStatus(status.getName())
+                .status(status.getName())
                 .createAt(LocalDate.now())
                 .build();
     }
@@ -57,7 +41,7 @@ public class EntityMapper {
                 .firstName(client.getFirstName())
                 .lastName(client.getLastName())
                 .surname(client.getSurname())
-                .status(client.getClientStatus())
+                .status(client.getStatus())
                 .build();
     }
 
@@ -67,7 +51,7 @@ public class EntityMapper {
                 .firstName(client.getFirstName())
                 .lastName(client.getLastName())
                 .surname(client.getSurname())
-                .personalDocument(client.getPersonalDocument())
+                .identificationDocument(client.getIdentificationDocument())
                 .phoneNumber(client.getPhoneNumber())
                 .build();
     }

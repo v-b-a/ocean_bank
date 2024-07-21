@@ -1,5 +1,6 @@
 package com.ocean.bank.error.handling.testEnvironment.controller;
 
+import com.ocean.bank.error.handling.excepiton.LoginException;
 import com.ocean.bank.error.handling.excepiton.NotFoundException;
 import com.ocean.bank.error.handling.testEnvironment.dto.DemoDto;
 import org.springframework.http.MediaType;
@@ -31,5 +32,10 @@ public class TestController {
     @GetMapping("/testNotFoundException")
     public void notFoundException() {
         throw new NotFoundException("not found exception");
+    }
+
+    @GetMapping("/testLoginException")
+    public void loginException() {
+        throw new LoginException("login exception");
     }
 }

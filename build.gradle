@@ -41,7 +41,7 @@ subprojects {
         jacocoExc = ['**/dto/*', '**/configuration/*']
         jacocoVersion = '0.8.7'
         kotlinLoggingVersion = '3.0.5'
-        errorHandlingVersion = '0.0.3-SNAPSHOT'
+        errorHandlingVersion = '0.0.4-SNAPSHOT'
     }
 
 
