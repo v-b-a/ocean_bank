@@ -20,10 +20,8 @@ spring:
 
 eureka:
   client:
-    registerWithEureka: true
-    fetchRegistry: true
     serviceUrl:
-      defaultZone: http://localhost:8083/eureka
+      defaultZone: http://localhost:8081/eureka
 
 dictionaries:
   currency:

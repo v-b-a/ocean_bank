@@ -6,3 +6,8 @@ spring:
       database: clients
       uri: mongodb://localhost:27017
       auto-index-creation: true
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8081/eureka
