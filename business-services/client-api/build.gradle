@@ -16,8 +16,8 @@ dependencies {
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
     // mockito
-    testImplementation "org.mockito.kotlin:mockito-kotlin:$mockitoKotlinVersion"
-    testImplementation "org.mockito:mockito-inline:$mockitoInlineVersion"
+//    testImplementation "org.mockito.kotlin:mockito-kotlin:$kotlinProjects.mockitoKotlinVersion"
+//    testImplementation "org.mockito:mockito-inline:$mockitoInlineVersion"
     testImplementation 'org.springframework.boot:spring-boot-starter-webflux'
 
     // lombok

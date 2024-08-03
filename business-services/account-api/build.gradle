@@ -13,7 +13,7 @@ dependencies {
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 
     // logging
-    implementation "io.github.microutils:kotlin-logging:$kotlinLoggingVersion"
+    implementation "io.github.microutils:kotlin-logging:$kotlinProjects.kotlinLoggingVersion"
 
     // testing
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -23,7 +23,7 @@ dependencies {
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
     // mockito
-    testImplementation "org.mockito.kotlin:mockito-kotlin:$mockitoKotlinVersion"
+    testImplementation "org.mockito.kotlin:mockito-kotlin:$kotlinProjects.mockitoKotlinVersion"
     testImplementation "org.mockito:mockito-inline:$mockitoInlineVersion"
     testImplementation 'org.springframework.boot:spring-boot-starter-webflux'
 

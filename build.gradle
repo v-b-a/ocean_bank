@@ -13,9 +13,6 @@ repositories {
 }
 
 ext {
-    kotlinLoggingVersion = '3.0.5'
-    mockitoKotlinVersion = '5.2.1'
-    mockitoInlineVersion = '2.13.0'
     kotlinProjects = [
             project('business-services:account-api'),
             project('starters-libraries:test-lib')
@@ -26,6 +23,12 @@ configure(kotlinProjects) {
     apply plugin: 'org.jetbrains.kotlin.jvm'
     apply plugin: 'org.jetbrains.kotlin.plugin.spring'
     apply plugin: 'org.jetbrains.kotlin.plugin.jpa'
+
+    ext {
+        kotlinLoggingVersion = '3.0.5'
+        mockitoKotlinVersion = '5.2.1'
+        mockitoInlineVersion = '2.13.0'
+    }
 }
 
 subprojects {
@@ -40,11 +43,9 @@ subprojects {
         springDependencyManagementVersion = '1.1.5'
         jacocoExc = ['**/dto/*', '**/configuration/*']
         jacocoVersion = '0.8.7'
-        kotlinLoggingVersion = '3.0.5'
-        errorHandlingVersion = '0.0.6-SNAPSHOT'
+        errorHandlingVersion = '0.0.7-SNAPSHOT'
         springCloudVersion = "2023.0.3"
     }
-
 
     repositories {
         mavenLocal()
@@ -73,7 +74,6 @@ subprojects {
             mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
         }
     }
-
 
     java { sourceCompatibility = '17' }
 

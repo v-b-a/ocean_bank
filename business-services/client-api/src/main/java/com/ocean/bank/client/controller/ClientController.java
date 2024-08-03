@@ -6,7 +6,6 @@ import com.ocean.bank.client.controller.dto.ClientRs;
 import com.ocean.bank.client.controller.dto.ConfirmRq;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,7 +22,7 @@ public class ClientController {
     private ClientService clientService;
 
     @PostMapping
-    public ClientRs addClient(
+    public ClientRs createClient(
             @RequestBody @Valid ClientInfo clientInfo
     ) {
         return clientService.createClient(clientInfo);

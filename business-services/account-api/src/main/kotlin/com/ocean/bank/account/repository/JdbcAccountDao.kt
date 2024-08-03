@@ -3,7 +3,7 @@ package com.ocean.bank.account.repository
 import com.ocean.bank.account.repository.entity.Account
 import com.ocean.bank.account.repository.entity.AccountType
 import com.ocean.bank.account.repository.entity.Client
-import com.ocean.bank.error.handling.excepiton.NotFoundException
+//import com.ocean.bank.error.handling.excepiton.NotFoundException
 import mu.KLogging
 import org.springframework.stereotype.Component
 import java.sql.Connection
@@ -22,8 +22,8 @@ class JdbcAccountDao(
         dataSource.connection.use { connection ->
             try {
                 connection.autoCommit = false
-                val account = connection.getAccount(accountNumber, clientCode)
-                    ?: throw NotFoundException("Account number $accountNumber for client $clientCode not found")
+                val account = connection.getAccount(accountNumber, clientCode)!!
+//                    ?: throw NotFoundException("Account number $accountNumber for client $clientCode not found")
                 connection.saveAccountStatusesHistory(account, statusCode)
                 connection.updateAccounts(accountNumber, account, statusCode)
                 connection.commit()
