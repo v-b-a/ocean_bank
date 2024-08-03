@@ -8,6 +8,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-testcontainers'
     implementation 'org.testcontainers:junit-jupiter'
     implementation 'org.testcontainers:postgresql'
+    implementation 'org.testcontainers:mongodb'
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 }

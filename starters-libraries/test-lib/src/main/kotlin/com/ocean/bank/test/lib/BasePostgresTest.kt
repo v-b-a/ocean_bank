@@ -2,11 +2,13 @@ package com.ocean.bank.test.lib
 
 import org.junit.jupiter.api.extension.AfterAllCallback
 import org.junit.jupiter.api.extension.ExtensionContext
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
 import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
 import org.testcontainers.containers.PostgreSQLContainer
 
-abstract class TestContainerPostgresConfig : AfterAllCallback {
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+open class BasePostgresTest: AfterAllCallback, BaseTest() {
 
     companion object {
 
@@ -14,6 +16,7 @@ abstract class TestContainerPostgresConfig : AfterAllCallback {
             .withDatabaseName("accounts-ob")
             .withUsername("postgres")
             .withPassword("password")
+            .withReuse(true)
 
 
         @JvmStatic

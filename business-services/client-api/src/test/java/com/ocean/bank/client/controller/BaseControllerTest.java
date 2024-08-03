@@ -2,19 +2,15 @@ package com.ocean.bank.client.controller;
 
 import com.ocean.bank.client.repository.StatusRepository;
 import com.ocean.bank.client.repository.entity.Status;
+import com.ocean.bank.test.lib.BaseMongoTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.web.reactive.server.WebTestClient;
 
 import java.util.List;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class BaseControllerTest extends AbstractMongoConfig {
+public class BaseControllerTest extends BaseMongoTest {
     @Autowired
     StatusRepository statusRepository;
-    @Autowired
-    WebTestClient webTestClient;
 
     @BeforeEach
     public void setup() {
