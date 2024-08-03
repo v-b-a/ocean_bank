@@ -31,7 +31,7 @@ public class ClientController {
     @PostMapping("/confirm")
     public ClientRs confirmClient(
             @RequestHeader("client-code") String clientCode,
-            @RequestBody ConfirmRq confirmCode
+            @RequestBody @Valid ConfirmRq confirmCode
     ) throws LoginException {
         return clientService.confirmClient(clientCode, confirmCode);
     }

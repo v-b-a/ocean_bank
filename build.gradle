@@ -41,7 +41,7 @@ subprojects {
 
     ext {
         springDependencyManagementVersion = '1.1.5'
-        jacocoExc = ['**/dto/*', '**/configuration/*']
+        jacocoExc = ['**/dto/*', '**/configuration/*', '**/entity/*']
         jacocoVersion = '0.8.7'
         errorHandlingVersion = '0.0.7-SNAPSHOT'
         springCloudVersion = "2023.0.3"
